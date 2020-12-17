@@ -13,6 +13,12 @@ describe('MAIN', () => {
         const negativeIntStr = "-332";
         expect(stringToInt(negativeIntStr)).toStrictEqual(-332)
     })
+
+    test("should return NaN if not convertible to type int", () => {
+        const noPotentialNumber = "fjdkl13h";
+        expect(stringToInt(noPotentialNumber)).toBeFalsy();
+        expect(stringToInt(noPotentialNumber)).toBeNaN();
+    })
 })
 
 describe('UTILS', () => {

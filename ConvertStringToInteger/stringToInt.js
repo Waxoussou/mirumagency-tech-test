@@ -11,10 +11,10 @@ function stringToInt(str) {
 
     const negation = isNegativeNumber(str) && arr.shift()
 
-    const newArr = arr.map(v => renderIntTypeFromIntString(v))
-    const len = newArr.length;
+    const integerArray = arr.map(v => renderIntTypeFromIntString(v))
+    const len = integerArray.length;
 
-    const value = newArr.reduce((acc, curr, index) => {
+    const value = integerArray.reduce((acc, curr, index) => {
         const multiplicator = Math.pow(10, len - (index + 1))
         return acc + (curr * multiplicator)
     }, 0)
