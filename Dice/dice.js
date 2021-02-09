@@ -12,8 +12,7 @@ function dice(values) {
     if (!values) { values = [1, 2, 3, 4, 5, 6] }
 
     const splitValues = splitArrayInTwoFromMiddleIndex(values)
-    const selector = oneOrTwo() - 1;
-
+    const selector = oneOrTwo();
     const selectedSplitValues = splitValues[selector]
 
     if (selectedSplitValues.length > 1) {
@@ -21,7 +20,6 @@ function dice(values) {
     }
 
     return selectedSplitValues[0];
-
 }
 
 function splitArrayInTwoFromMiddleIndex(arr) {
@@ -34,8 +32,38 @@ function splitArrayInTwoFromMiddleIndex(arr) {
 }
 
 function oneOrTwo() {
-    return Math.round(Math.random()) + 1
+    return Math.round(Math.random());
 }
 
 
 module.exports = { dice, oneOrTwo, splitArrayInTwoFromMiddleIndex };
+
+
+function test() {
+    const res = parseInt([oneOrTwo(), oneOrTwo(), oneOrTwo()].join(''), 2);
+    if (res > 5) { return test() }
+    return res;
+}
+
+const datatest = [];
+const dataDice = [];
+for (let i = 0; i < 100; i++) {
+    console.log(i);
+    console.time('test')
+    datatest.push(test());
+    console.timeEnd('test')
+    
+    console.time('dice')
+    dataDice.push(dice())
+    console.timeEnd('dice')
+}
+
+const probaTest = datatest.reduce((acc, curr) => {
+    acc[curr] = acc[curr] + 1 || 1
+    return acc;
+}, {})
+const probaDice = dataDice.reduce((acc, curr) => {
+    acc[curr] = acc[curr] + 1 || 1
+    return acc;
+}, {})
+console.log({ probaTest, probaDice });
